@@ -13,8 +13,8 @@ dependencies {
 gradlePlugin {
     plugins {
         create("AutoPublish") {
-            id = "com.autopublish.plugin"
-            implementationClass = "com.autopublish.AutopublishPlugin"
+            id = "wsh.autopublish.plugin"
+            implementationClass = "wsh.autopublish.AutopublishPlugin"
             version= "0.9-snapshot"
         }
     }

@@ -4,16 +4,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package com.autopublish
+package wsh.autopublish
 
-import com.autopublish.internal.getPathInProject
-import com.autopublish.internal.getUpdatedStatus
-import com.autopublish.internal.log
-import com.autopublish.internal.measureTimeMillis
-import com.autopublish.internal.publish
-import com.autopublish.internal.useLatestLocalArtifacts
-import com.autopublish.model.Module
-import com.autopublish.storage.LocalDataRepository
+import wsh.autopublish.internal.getPathInProject
+import wsh.autopublish.internal.getUpdatedStatus
+import wsh.autopublish.internal.log
+import wsh.autopublish.internal.measureTimeMillis
+import wsh.autopublish.internal.publish
+import wsh.autopublish.internal.useLatestLocalArtifacts
+import wsh.autopublish.model.Module
+import wsh.autopublish.storage.LocalDataRepository
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.Plugin
 import org.gradle.api.Project

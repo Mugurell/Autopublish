@@ -1,4 +1,4 @@
-package com.autopublish.internal
+package wsh.autopublish.internal
 
 /**
  * Simple utility for measuring the time needed for executing a particular method.

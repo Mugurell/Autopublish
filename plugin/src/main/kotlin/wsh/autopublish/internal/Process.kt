@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package com.autopublish.internal
+package wsh.autopublish.internal
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow

@@ -4,12 +4,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package com.autopublish.storage
+package wsh.autopublish.storage
 
-import com.autopublish.internal.getPathInProject
-import com.autopublish.internal.log
-import com.autopublish.model.Module
-import com.autopublish.model.ModuleState
+import wsh.autopublish.internal.getPathInProject
+import wsh.autopublish.internal.log
+import wsh.autopublish.model.Module
+import wsh.autopublish.model.ModuleState
 import org.gradle.api.Project
 import java.io.File
 import java.util.Properties

@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package com.autopublish.internal
+package wsh.autopublish.internal
 
 /**
  * Simple logging utility which prepends a stable prefix to allow for easy attribution of console messages.
