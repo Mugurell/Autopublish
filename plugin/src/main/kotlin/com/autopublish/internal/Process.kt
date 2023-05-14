@@ -1,3 +1,9 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package com.autopublish.internal
 
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +24,7 @@ import java.io.InputStream
  * @param redirectOutputStream Optional listener for all errors of running the indicated command.
  * Data will be sent as a [Flow] of output lines.
  */
-suspend fun execute(
+internal suspend fun execute(
     vararg command: String,
     location: String,
     redirectOutputStream: (suspend (Flow<String>) -> Unit)? = null,

@@ -7,7 +7,7 @@ package com.autopublish.internal
  * @param timeCallback Consumer of the computed execution time of [block]
  * @param block Method which will have it's execution time measured.
  */
-inline fun <T> measureTimeMillis(
+internal inline fun <T> measureTimeMillis(
     timeCallback: (Long) -> Unit,
     block: () -> T
 ): T {
