@@ -55,5 +55,5 @@ private suspend fun hashRepo(location: String): String {
         },
     )
 
-    return String(hasher.digest())
+    return String(hasher.digest(), Charsets.ISO_8859_1)
 }

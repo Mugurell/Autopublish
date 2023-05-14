@@ -15,7 +15,7 @@ gradlePlugin {
         create("AutoPublish") {
             id = "com.autopublish.plugin"
             implementationClass = "com.autopublish.AutopublishPlugin"
-            version= "0.5-snapshot"
+            version= "0.9-snapshot"
         }
     }
 }

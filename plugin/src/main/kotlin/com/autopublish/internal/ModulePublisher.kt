@@ -1,7 +1,6 @@
 package com.autopublish.internal
 
 import com.autopublish.model.Module
-import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 
 /**
@@ -31,11 +30,9 @@ internal suspend fun Module.publish() {
  */
 internal fun Project.useLatestLocalArtifacts(modules: List<String>) {
     // Have Maven Local as the first repository in which artifacts are searched for.
-    try {
+    if (!repositories.contains(repositories.mavenLocal())) {
         // This could throw if Maven Local is already configured in the project.
         repositories.addFirst(repositories.mavenLocal())
-    } catch (error: InvalidUserDataException) {
-        println(error.message)
     }
 
     configurations.all {

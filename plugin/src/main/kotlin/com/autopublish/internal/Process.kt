@@ -26,9 +26,7 @@ suspend fun execute(
 ): Int {
     return runBlocking {
         ProcessBuilder(*command).apply {
-            directory(File(location).also {
-                println("Executing \"${command.joinToString()}\" in \"${it.absolutePath}\"")
-            })
+            directory(File(location))
         }
             .start().also { process ->
                 redirectOutputStream?.let { process.inputStream.publishStream(it) }
