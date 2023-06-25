@@ -6,6 +6,9 @@
 
 package wsh.autopublish
 
+import kotlinx.coroutines.runBlocking
+import org.gradle.api.Plugin
+import org.gradle.api.Project
 import wsh.autopublish.internal.getPathInProject
 import wsh.autopublish.internal.getUpdatedStatus
 import wsh.autopublish.internal.log
@@ -14,17 +17,18 @@ import wsh.autopublish.internal.publish
 import wsh.autopublish.internal.useLatestLocalArtifacts
 import wsh.autopublish.model.Module
 import wsh.autopublish.storage.LocalDataRepository
-import kotlinx.coroutines.runBlocking
-import org.gradle.api.Plugin
-import org.gradle.api.Project
 
 class AutopublishPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        measureTimeMillis(::logAutopublishingFinished) {
-            val localData = LocalDataRepository(target)
+    override fun apply(target: Project) = target.run {
+        val configuration = target.extensions.create("autoPublish", AutopublishProperties::class.java, this)
 
-            if (localData.checkIfAutopublishingIsEnabled()) {
-                autopublishModules(target, localData)
+        project.afterEvaluate {
+            measureTimeMillis(::logAutopublishingFinished) {
+                val localData = LocalDataRepository(target, configuration)
+
+                if (localData.checkIfAutopublishingIsEnabled()) {
+                    autopublishModules(target, localData)
+                }
             }
         }
     }
@@ -85,7 +89,7 @@ class AutopublishPlugin : Plugin<Project> {
      * @param modules Names of the local artifacts as project dependencies.
      */
     private fun logModulesAppliedToProject(target: Project, modules: MutableList<Module>) = log(
-        "Project ${target.name} will use the following dependencies from locally autopublished builds:\n\t" +
+        "Project [:${target.name}] will use the following dependencies from locally autopublished builds:\n\t" +
         modules
             .map { "[${it.name}] from ${getPathInProject(target, it.localPath)}"}
             .joinToString("\n\t")

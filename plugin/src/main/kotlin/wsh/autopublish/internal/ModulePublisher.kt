@@ -45,7 +45,7 @@ internal fun Project.useLatestLocalArtifacts(modules: List<String>) {
         it.resolutionStrategy.dependencySubstitution { depSubstitution ->
             modules.forEach { autopublishedModule ->
                 depSubstitution.substitute(depSubstitution.module(autopublishedModule))
-                    .using(depSubstitution.module("$autopublishedModule:+"))
+                    .using(depSubstitution.module("$autopublishedModule:latest.release"))
                     .because("Use the latest available local version.")
             }
         }

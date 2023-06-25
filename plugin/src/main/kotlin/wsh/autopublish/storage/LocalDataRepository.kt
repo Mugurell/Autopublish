@@ -11,17 +11,24 @@ import wsh.autopublish.internal.log
 import wsh.autopublish.model.Module
 import wsh.autopublish.model.ModuleState
 import org.gradle.api.Project
+import wsh.autopublish.AutopublishProperties
 import java.io.File
 import java.util.Properties
-
-private val modulesConfigurationPath = "autopublish${File.separatorChar}modules.properties"
-private val modulesStatusesPath = "autopublish${File.separatorChar}modules-statuses.properties"
 
 private val createDefaultModulesConfigurationMessage =
     """Configuration for what modules should be autopublished
       >The expected structure is <dependency>=<local path>, eg:
-      >com.sample:example=../anotherProject
+      >com.sample\:example=../anotherProject
       >The path can be relative to this project or an absolute path.
+      >""".trimMargin(">")
+
+private val moduleNotConfiguredMessage =
+    """Autopublish disabled. Missing modules.properties file.
+       >Use:
+       >autoPublish {
+       >    modulesConfigurationInput = file(modules configuration properties file)
+       >}
+       >to provide the properties file containing the modules to be autopublished.
       >""".trimMargin(">")
 
 
@@ -30,35 +37,35 @@ private val createDefaultModulesConfigurationMessage =
  *
  * @param project The [Project] this plugin is applied to. Used to resolve storage paths.
  */
-internal class LocalDataRepository(private val project: Project) {
-    private val localConfigurationFile = project.rootProject.file(modulesConfigurationPath)
-    private val modulesStatusesFile = project.rootProject.file(modulesStatusesPath)
+internal class LocalDataRepository(
+    private val project: Project,
+    private val config: AutopublishProperties,
+) {
+    private val configurationFile = config.modulesConfigurationInputProp.asFile.get()
+    private val modulesStatusesFile = config.modulesChangesStatusOutputProp.asFile.get()
 
     /**
      * Check if there is any module set to be autopublished.
      *
-     * @param project Host project interested in consuming external modules and configured as such.
-     * @param logCurrentStatus Whether to automatically log the current status: if modules are to be autopublished or not.
-     *
      * @return `true` if external modules are declared for autopublication.
      */
-    internal fun checkIfAutopublishingIsEnabled(): Boolean {
-        ensurePluginConfigurationIsNotTrackedByGit()
-
-        return when {
-            !localConfigurationFile.exists() -> {
-                log("Autopublish disabled. Missing modules.properties file.")
+    internal fun checkIfAutopublishingIsEnabled() = when {
+        !configurationFile.exists() -> {
+            log(moduleNotConfiguredMessage)
+            if (config.generateInputTemplate) {
                 createStarterModuleConfigurationFile()
-                false
             }
-            localConfigurationFile.asProperties.isEmpty -> {
-                log("Autopublish disabled. No modules set for autopublishing.")
-                false
-            }
-            else -> {
-                log("Auto publication of local modules is enabled.")
-                true
-            }
+            false
+        }
+
+        configurationFile.asProperties.isEmpty -> {
+            log("Autopublish disabled. No modules set for autopublishing.")
+            false
+        }
+
+        else -> {
+            log("Auto publication of local modules is enabled.")
+            true
         }
     }
 
@@ -73,7 +80,7 @@ internal class LocalDataRepository(private val project: Project) {
             emptyList<Map.Entry<Any, Any>>()
         }
 
-        return localConfigurationFile.asProperties.entries
+        return configurationFile.asProperties.entries
             .map { module ->
                 ModuleState(
                     Module(module.key.toString(), module.value.toString()),
@@ -97,18 +104,10 @@ internal class LocalDataRepository(private val project: Project) {
     }
 
     private fun createStarterModuleConfigurationFile() {
-        with (localConfigurationFile.ensureExists().asProperties) {
-            store(localConfigurationFile.writer(), createDefaultModulesConfigurationMessage)
+        with (configurationFile.ensureExists().asProperties) {
+            store(configurationFile.writer(), createDefaultModulesConfigurationMessage)
         }
-        log("Created ${getPathInProject(project, localConfigurationFile.toString())} as a started file.")
-    }
-
-    private fun ensurePluginConfigurationIsNotTrackedByGit() {
-        with(File(project.rootProject.projectDir.absolutePath, ".gitignore").ensureExists()) {
-            if (readLines().none { it == "/autopublish" || it == "autopublish" }) {
-                appendText("/autopublish")
-            }
-        }
+        log("Created ${getPathInProject(project, configurationFile.toString())} as a started file.")
     }
 }
 
@@ -123,6 +122,7 @@ private val File.asProperties
  */
 private fun File.ensureExists(): File {
     if (!exists()) {
+        parentFile.mkdirs()
         createNewFile()
     }
     return this
