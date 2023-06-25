@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AutoPublish"
+rootProject.name = "wsh.autopublish"
 include(":plugin")
  

@@ -2,6 +2,7 @@ plugins {
     `java-gradle-plugin`
     kotlin("jvm") version "1.8.21"
     id("maven-publish")
+    id("com.gradle.plugin-publish") version "1.1.0"
 }
 
 dependencies {
@@ -12,10 +13,15 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("AutoPublish") {
+        create("wsh.autopublish") {
             id = "wsh.autopublish.plugin"
             implementationClass = "wsh.autopublish.AutopublishPlugin"
-            version= "0.9-snapshot"
+            version= "0.9"
+            website.set("https://github.com/Mugurell/Autopublish")
+            vcsUrl.set("https://github.com/Mugurell/Autopublish")
+            tags.set(listOf("publish", "maven", "maven-publish", "mavenLocal", "continuousIntegration", "testing"))
+            displayName = "STAR - Simple To Autopublish Repositories"
+            description = "An anti-bikeshedding (ktlint ™) solution for using local projects in your own!"
         }
     }
 }
