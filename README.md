@@ -61,10 +61,22 @@ gradle / kts code to adopt
        ```
       Declare the list of projects available locally to automatically build and integrate.
       Declaration should follow the <dependency>=<local path> structure, eg:
-      com.sample:example=../anotherProject
+      com.sample\:example=../anotherProject
       The path to the other project can be relative to this project or an absolute path.
 
        ```
+
+ ---
+
+> [Artifacts validation data (checksums)](/verification).
+> 
+> Public GPG signature used: FF02C66BA552BAFD256831B0067CE7FBD32634D9.
+> 
+> See [Gradle - Verifying dependencies](https://docs.gradle.org/current/userguide/dependency_verification.htm) for why and how to use this.
+ ---
+  
+
+
 - **Minimap teardown process:**
     - Just delete / comment the configuration line(s) for the local projects which should not be integrated in the hosting project anymore.
 
