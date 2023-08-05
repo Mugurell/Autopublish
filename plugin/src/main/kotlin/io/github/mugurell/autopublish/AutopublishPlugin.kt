@@ -4,19 +4,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package wsh.autopublish
+package io.github.mugurell.autopublish
 
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import wsh.autopublish.internal.getPathInProject
-import wsh.autopublish.internal.getUpdatedStatus
-import wsh.autopublish.internal.log
-import wsh.autopublish.internal.measureTimeMillis
-import wsh.autopublish.internal.publish
-import wsh.autopublish.internal.useLatestLocalArtifacts
-import wsh.autopublish.model.Module
-import wsh.autopublish.storage.LocalDataRepository
+import io.github.mugurell.autopublish.internal.getPathInProject
+import io.github.mugurell.autopublish.internal.getUpdatedStatus
+import io.github.mugurell.autopublish.internal.log
+import io.github.mugurell.autopublish.internal.measureTimeMillis
+import io.github.mugurell.autopublish.internal.publish
+import io.github.mugurell.autopublish.internal.useLatestLocalArtifacts
+import io.github.mugurell.autopublish.model.Module
 
 class AutopublishPlugin : Plugin<Project> {
     override fun apply(target: Project) = target.run {

@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package wsh.autopublish.model
+package io.github.mugurell.autopublish.model
 
 /**
  * Local module identification data.

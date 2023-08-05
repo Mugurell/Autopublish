@@ -13,10 +13,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("wsh.autopublish") {
-            id = "wsh.autopublish.plugin"
-            implementationClass = "wsh.autopublish.AutopublishPlugin"
-            version= "0.9"
+        create("mugurell.autopublish") {
+            id = "io.github.mugurell.autopublish"
+            implementationClass = "io.github.mugurell.autopublish.AutopublishPlugin"
+            version= "0.9.1"
             website.set("https://github.com/Mugurell/Autopublish")
             vcsUrl.set("https://github.com/Mugurell/Autopublish")
             tags.set(listOf("publish", "maven", "maven-publish", "mavenLocal", "continuousIntegration", "testing"))

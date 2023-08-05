@@ -4,9 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package wsh.autopublish.internal
+package io.github.mugurell.autopublish.internal
 
-import wsh.autopublish.model.ModuleState
+import io.github.mugurell.autopublish.model.ModuleState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import java.security.MessageDigest

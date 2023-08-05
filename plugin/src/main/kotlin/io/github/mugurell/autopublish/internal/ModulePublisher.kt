@@ -4,9 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package wsh.autopublish.internal
+package io.github.mugurell.autopublish.internal
 
-import wsh.autopublish.model.Module
+import io.github.mugurell.autopublish.model.Module
 import org.gradle.api.Project
 
 /**

@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "wsh.autopublish"
+rootProject.name = "io.github.mugurell.autopublish"
 include(":plugin")
  

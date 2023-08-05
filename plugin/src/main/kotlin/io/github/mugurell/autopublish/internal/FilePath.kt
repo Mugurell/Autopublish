@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package wsh.autopublish.internal
+package io.github.mugurell.autopublish.internal
 
 import org.gradle.api.Project
 import java.net.URI

@@ -1,4 +1,4 @@
-package wsh.autopublish.internal
+package io.github.mugurell.autopublish.internal
 
 /**
  * Simple utility for measuring the time needed for executing a particular method.

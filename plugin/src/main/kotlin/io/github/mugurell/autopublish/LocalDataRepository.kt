@@ -4,14 +4,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
 
-package wsh.autopublish.storage
+package io.github.mugurell.autopublish
 
-import wsh.autopublish.internal.getPathInProject
-import wsh.autopublish.internal.log
-import wsh.autopublish.model.Module
-import wsh.autopublish.model.ModuleState
+import io.github.mugurell.autopublish.internal.getPathInProject
+import io.github.mugurell.autopublish.internal.log
+import io.github.mugurell.autopublish.model.Module
+import io.github.mugurell.autopublish.model.ModuleState
 import org.gradle.api.Project
-import wsh.autopublish.AutopublishProperties
 import java.io.File
 import java.util.Properties
 

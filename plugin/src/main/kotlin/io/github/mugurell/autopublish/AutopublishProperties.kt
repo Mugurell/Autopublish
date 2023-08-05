@@ -1,4 +1,4 @@
-package wsh.autopublish
+package io.github.mugurell.autopublish
 
 import org.gradle.api.Project
 import org.gradle.api.file.Directory
