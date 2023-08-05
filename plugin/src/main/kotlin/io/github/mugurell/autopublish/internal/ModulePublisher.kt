@@ -7,6 +7,7 @@
 package io.github.mugurell.autopublish.internal
 
 import io.github.mugurell.autopublish.model.Module
+import kotlinx.coroutines.flow.scan
 import org.gradle.api.Project
 
 /**
@@ -24,7 +25,21 @@ import org.gradle.api.Project
 internal suspend fun Module.publish() {
     execute(
         command = arrayOf("./gradlew", "publishToMavenLocal", "-PlocalVersion=${System.currentTimeMillis()}"),
-        location = localPath
+        location = localPath,
+        redirectErrorStream = {
+            it.collect {
+                // Don't expect any error. If we receive one users should investigate it.
+                throw RuntimeException(
+                    """
+                        Could not compile module [$name].
+                        Please investigate and fix any compilation errors in the module then try autopublishing again.
+                    """.trimIndent()
+                ).apply {
+                    // There is no usable stacktrace information.
+                    stackTrace = arrayOf()
+                }
+            }
+        }
     )
 }
 
